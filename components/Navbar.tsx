@@ -12,13 +12,19 @@ const Navbar = () => {
   const User = false;
   return (
     <div className="flex items-center justify-between container pt-4 px-[6%]">
-      <div className="text-2xl font-extrabold text-white">
+      <div className="text-2xl font-extrabold text-[#10B981]">
         Job<span className="text-white">Portal</span>
       </div>
       <div className="flex items-center font-medium space-x-7 text-md text-white">
-        <div className="cursor-pointer">Home</div>
-        <div className="cursor-pointer">Jobs</div>
-        <div className="cursor-pointer">Browse</div>
+        <Link href={"/"} className="cursor-pointer">
+          Home
+        </Link>
+        <Link href={"/jobs"} className="cursor-pointer">
+          Jobs
+        </Link>
+        <Link href={"/browse"} className="cursor-pointer">
+          Browse
+        </Link>
         {User ? (
           <div>
             <Popover>
@@ -66,7 +72,7 @@ const Navbar = () => {
             <Link href={"/login"}>
               <Button
                 size="sm"
-                className="hover:bg-white border text-white bg-black hover:text-black font-bold duration-300"
+                className="hover:bg-white border border-[#10B981] text-white bg-black hover:text-black font-bold duration-300"
                 variant="outline"
               >
                 Log In
@@ -75,7 +81,7 @@ const Navbar = () => {
             <Link href={"/signup"}>
               <Button
                 size="sm"
-                className="bg-white text-black font-bold duration-300"
+                className="bg-[#10B981] border border-[#10B981] text-white font-bold duration-300"
                 variant="outline"
               >
                 Sign Up

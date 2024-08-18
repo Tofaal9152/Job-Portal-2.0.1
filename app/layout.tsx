@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { ReduxProvider } from "@/lib/ReduxProvider";
+import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +19,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ReduxProvider>{children}</ReduxProvider>
+      <body className={`${inter.className} bg-black `}>
+        <ReduxProvider>
+          <main className="relative">
+            <div className="sticky bg-black top-0 z-50 w-full">
+              <Navbar />
+            </div>
+            {children}
+          </main>
+        </ReduxProvider>
         <Toaster />
       </body>
     </html>

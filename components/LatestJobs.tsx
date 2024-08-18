@@ -4,7 +4,7 @@ export function LatestJobs() {
   return (
     <div className="">
       <div className="max-w-5xl mx-auto px-8">
-        <div className="text-5xl font-extrabold text-center text-violet-700 mb-4 leading-tight">
+        <div className="text-5xl font-extrabold text-center text-[#10B981] mb-4 leading-tight">
           Latest Job Openings from Top Companies
         </div>
         <HoverEffect items={jobs} />

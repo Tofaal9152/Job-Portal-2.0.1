@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Autoplay from "embla-carousel-autoplay";
 import {
   Carousel,
   CarouselContent,
@@ -32,12 +31,17 @@ export function CarouselPlugin() {
       <CarouselContent>
         {jobs.map((item, index) => (
           <CarouselItem className="md:basis-1/2 lg:basis-1/3">
-            <Button variant="outline">{item.name}</Button>
+            <Button
+              className="bg-transparent text-white border-[#10B981] "
+              variant="outline"
+            >
+              {item.name}
+            </Button>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className="bg-transparent text-white border-[#10B981]" />
+      <CarouselNext className="bg-transparent text-white border-[#10B981]" />
     </Carousel>
   );
 }
