@@ -21,7 +21,6 @@ import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { selectLoading, setLoading } from "@/lib/features/user/allSlice";
 import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
@@ -36,13 +35,11 @@ const formSchema = z.object({
   role: z.enum(["student", "recruiter"], {
     required_error: "You need to select a role.",
   }),
-  // profile: z.string().optional(), 
+  // profile: z.string().optional(),
 });
 
 const Page = () => {
-
   const dispatch = useAppDispatch();
-  const loading = useAppSelector(selectLoading);
   const router = useRouter();
 
   const form = useForm({
@@ -56,11 +53,9 @@ const Page = () => {
       profile: "",
     },
   });
-  const onSubmit =async (data: any) => {
+  const onSubmit = async (data: any) => {
     try {
       const res = await axios.post("api/user/register", data);
-      dispatch(setLoading(true));
-
       const message = res?.data?.message;
       console.log(res?.data?.message);
       toast.success(message);
@@ -70,17 +65,15 @@ const Page = () => {
 
       const message = error?.response?.data?.message;
       toast.error(message);
-    } finally {
-      dispatch(setLoading(false));
     }
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-black text-white">
+    <div className="flex h-screen items-center relative w-full z-50  justify-center bg-black text-white">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-3 w-[25rem] border shadow-lg shadow-violet-300 p-8"
+          className="space-y-3 w-[25rem] border border-[#10B981] shadow-lg shadow-[#10B981] p-8"
         >
           <div className="text-center text-xl underline font-bold">Sign Up</div>
 
@@ -95,7 +88,7 @@ const Page = () => {
                 <FormControl>
                   <Input
                     type="text"
-                    className="outline-none border text-black focus:ring-1 ring-violet-500 border-gray-300 rounded-md p-2 transition duration-300"
+                    className="outline-none border text-black focus:ring-1 ring-[#10B981] border-gray-300 rounded-md p-2 transition duration-300"
                     placeholder="Enter your full name"
                     {...field}
                   />
@@ -114,7 +107,7 @@ const Page = () => {
                 <FormControl>
                   <Input
                     type="text"
-                    className="outline-none border text-black focus:ring-1 ring-violet-500 border-gray-300 rounded-md p-2 transition duration-300"
+                    className="outline-none border text-black focus:ring-1 ring-[#10B981] border-gray-300 rounded-md p-2 transition duration-300"
                     placeholder="Enter your email address"
                     {...field}
                   />
@@ -135,7 +128,7 @@ const Page = () => {
                 <FormControl>
                   <Input
                     type="password"
-                    className="outline-none border text-black focus:ring-1 ring-violet-500 border-gray-300 rounded-md p-2 transition duration-300"
+                    className="outline-none border text-black focus:ring-1 ring-[#10B981] border-gray-300 rounded-md p-2 transition duration-300"
                     placeholder="Create a password"
                     {...field}
                   />
@@ -156,7 +149,7 @@ const Page = () => {
                 <FormControl>
                   <Input
                     type="text"
-                    className="outline-none border text-black focus:ring-1 ring-violet-500 border-gray-300 rounded-md p-2 transition duration-300"
+                    className="outline-none border text-black focus:ring-1 ring-[#10B981] border-gray-300 rounded-md p-2 transition duration-300"
                     placeholder="Enter your phone number (e.g., 01XXXXXXXX)"
                     {...field}
                   />
@@ -268,9 +261,9 @@ const Page = () => {
               name="profile"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="relative cursor-pointer shadow shadow-violet-300 p-2 flex items-center justify-center space-x-3">
+                  <FormLabel className="relative cursor-pointer shadow shadow-[#10B981] p-2 flex items-center justify-center space-x-3">
                     <span>Profile</span>
-                    <FaCamera className="text-[#9747ff]" size={20} />
+                    <FaCamera className="text-[#10B981]" size={20} />
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -285,23 +278,17 @@ const Page = () => {
             />
           </div>
 
-          {loading ? (
-            <Button className="bg-[#9747ff] w-full text-center hover:bg-violet-600 duration-300 text-white font-semibold py-2 px-4 border rounded-lg cursor-not-allowed">
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Please wait...
-            </Button>
-          ) : (
-            <Button
-              type="submit"
-              className="bg-[#9747ff] w-full text-center hover:bg-violet-600 duration-300 text-white font-semibold py-2 px-4 border rounded-lg"
-            >
-              Submit
-            </Button>
-          )}
+          <Button
+            type="submit"
+            className="bg-[#10B981] w-full text-center hover:bg-[#20775a] duration-300 text-white font-semibold py-2 px-4 border rounded-lg"
+          >
+            Submit
+          </Button>
+
           <div className="text-center mt-4">
             <p className="text-sm">
               Already have an account?{" "}
-              <Link href="/login" className="text-violet-500 hover:underline">
+              <Link href="/login" className="text-[#10B981] hover:underline">
                 Login
               </Link>
             </p>

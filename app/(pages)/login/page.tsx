@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/form";
 import { toast } from "sonner";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { selectLoading, setLoading } from "@/lib/features/user/allSlice";
+import { setAuthUser } from "@/lib/features/user/allSlice";
 import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
@@ -31,10 +31,8 @@ const formSchema = z.object({
 });
 
 const Page = () => {
-
-  const router = useRouter()
-  const dispatch = useAppDispatch()
-  const loading = useAppSelector(selectLoading)
+  const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -45,30 +43,25 @@ const Page = () => {
     },
   });
 
-  const onSubmit =async (data: any) => {
+  const onSubmit = async (data: any) => {
     try {
-
-      const res = await axios.post("api/user/login",data)
-      dispatch(setLoading(true));
+      const res = await axios.post("api/user/login", data);
+      dispatch(setAuthUser(res?.data?.user));
       const message = res?.data?.message;
-      toast.success(message)
-      router.push("/")
-      
-    } catch (error:any) {
-
+      toast.success(message);
+      router.push("/");
+    } catch (error: any) {
       const message = error?.response?.data?.message;
       toast.error(message);
-    }finally{
-      dispatch(setLoading(false));
     }
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-black text-white">
+    <div className="flex relative  h-screen w-full z-50  items-center justify-center bg-black text-white">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-3 w-[25rem] border shadow-lg shadow-violet-300 p-8"
+          className="space-y-3 w-[25rem] border border-[#10B981] shadow-lg shadow-[#10B981] p-8"
         >
           <div className="text-center  text-xl underline font-bold">
             Sign In
@@ -208,24 +201,18 @@ const Page = () => {
               </FormItem>
             )}
           />
-          {loading ? (
-            <Button className="bg-[#9747ff] w-full text-center hover:bg-violet-600 duration-300 text-white font-semibold py-2 px-4 border rounded-lg cursor-not-allowed">
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Please wait...
-            </Button>
-          ) : (
-            <Button
-              type="submit"
-              className="bg-[#9747ff] w-full text-center hover:bg-violet-600 duration-300 text-white font-semibold py-2 px-4 border rounded-lg"
-            >
-              Submit
-            </Button>
-          )}
+
+          <Button
+            type="submit"
+            className="bg-[#10B981] w-full text-center hover:bg-[#20775a] duration-300 text-white font-semibold py-2 px-4 border rounded-lg"
+          >
+            Submit
+          </Button>
 
           <div className="text-center mt-4">
             <p className="text-sm">
               Don't have an account?{" "}
-              <Link href="/signup" className="text-violet-500 hover:underline">
+              <Link href="/signup" className="text-[#10B981] hover:underline">
                 Sign up
               </Link>
             </p>
@@ -236,4 +223,4 @@ const Page = () => {
   );
 };
 
-export default Page
+export default Page;

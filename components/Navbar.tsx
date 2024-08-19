@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import {
   Popover,
   PopoverContent,
@@ -7,11 +9,48 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { LogOut, User2 } from "lucide-react";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { selectAuthUser, setAuthUser } from "@/lib/features/user/allSlice";
+import { toast } from "sonner";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const User = false;
+  const dispatch = useAppDispatch();
+  const AuthUser = useAppSelector(selectAuthUser);
+  const router = useRouter();
+
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      const res = await axios.get("api/user/logout");
+      dispatch(setAuthUser(null));
+      const message = res?.data?.message;
+      toast.success(message);
+      router.push("/login");
+    } catch (error: any) {
+      const message = error?.response?.data?.message;
+      toast.error(message);
+    }
+  };
   return (
-    <div className="flex items-center justify-between container pt-4 px-[6%]">
+    <div
+      className={`fixed flex items-center justify-between w-full top-0 left-0 z-50 p-2 px-[6%] transition-colors duration-300 ${
+        scrolled ? "bg-black" : "bg-transparent"
+      }`}
+    >
       <div className="text-2xl font-extrabold text-[#10B981]">
         Job<span className="text-white">Portal</span>
       </div>
@@ -25,7 +64,7 @@ const Navbar = () => {
         <Link href={"/browse"} className="cursor-pointer">
           Browse
         </Link>
-        {User ? (
+        {AuthUser ? (
           <div>
             <Popover>
               <PopoverTrigger>
@@ -42,10 +81,10 @@ const Navbar = () => {
               <PopoverContent className="p-4 border rounded-lg shadow-md bg-white">
                 <div>
                   <h1 className="font-semibold text-gray-800">
-                    Tofaal Mernstack
+                    {AuthUser.fullname}
                   </h1>
                   <p className="text-xs mt-1 text-gray-600 line-clamp-1">
-                    Hi nice to meet you !
+                    Hi I am a {AuthUser.role} nice to meet you !
                   </p>
                 </div>
                 <div className="flex items-center mt-2">
@@ -54,11 +93,13 @@ const Navbar = () => {
                     variant="link"
                     className="text-blue-500 hover:underline"
                   >
-                    <User2 className="mr-2 h-4 w-4" /> View profile
+                    <User2 className="mr-2 h-4 w-4" />
+                    <Link href={"/profile"}>View profile</Link>
                   </Button>
                   <Button
                     size="sm"
                     variant="link"
+                    onClick={handleLogout}
                     className="text-red-500 hover:underline"
                   >
                     <LogOut className="mr-2 h-4 w-4" /> Logout

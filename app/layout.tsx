@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-black `}>
         <ReduxProvider>
           <main className="relative">
-            <div className="sticky bg-black top-0 z-50 w-full">
+            <div className="fixed z-30 bg-transparent top-0 w-full">
               <Navbar />
             </div>
             {children}

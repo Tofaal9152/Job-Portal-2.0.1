@@ -2,6 +2,8 @@ import { Bookmark } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
 
 const Card = () => {
   return (
@@ -49,9 +51,9 @@ const Card = () => {
           variant="outline"
           className="flex-1 border-[#10B981] text-white bg-black"
         >
-          Details
+          <Link href={'/jobs/:details'}>Details</Link>
         </Button>
-        <Button className="flex-1 bg-[#10B981] text-white">
+        <Button className="flex-1 bg-[#10B981] text-white hover:bg-[#F1F5F9] hover:text-black">
           Save For Later
         </Button>
       </div>
