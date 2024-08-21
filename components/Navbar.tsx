@@ -35,11 +35,11 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get("api/user/logout");
+      const res = await axios.get("/api/user/logout");
       dispatch(setAuthUser(null));
       const message = res?.data?.message;
       toast.success(message);
-      router.push("/login");
+      router.push("/");
     } catch (error: any) {
       const message = error?.response?.data?.message;
       toast.error(message);
@@ -48,7 +48,7 @@ const Navbar = () => {
   return (
     <div
       className={`fixed flex items-center justify-between w-full top-0 left-0 z-50 p-2 px-[6%] transition-colors duration-300 ${
-        scrolled ? "bg-black" : "bg-transparent"
+        scrolled ? "bg-black shadow-md shadow-black" : "bg-transparent"
       }`}
     >
       <div className="text-2xl font-extrabold text-[#10B981]">
@@ -88,14 +88,16 @@ const Navbar = () => {
                   </p>
                 </div>
                 <div className="flex items-center mt-2">
-                  <Button
-                    size="sm"
-                    variant="link"
-                    className="text-blue-500 hover:underline"
-                  >
-                    <User2 className="mr-2 h-4 w-4" />
-                    <Link href={"/profile"}>View profile</Link>
-                  </Button>
+                  <Link href={"/profile"}>
+                    <Button
+                      size="sm"
+                      variant="link"
+                      className="text-blue-500 hover:underline"
+                    >
+                      <User2 className="mr-2 h-4 w-4" />
+                      View profile
+                    </Button>
+                  </Link>
                   <Button
                     size="sm"
                     variant="link"

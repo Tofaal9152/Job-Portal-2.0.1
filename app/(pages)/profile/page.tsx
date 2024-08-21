@@ -1,12 +1,18 @@
+'use client'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IoMdMail } from "react-icons/io";
 import { FaSquarePhone } from "react-icons/fa6";
 import { Pen, User2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import TableAppliedJob from "./TableAppliedJob";
+import { useState } from "react";
+import Edit_Modal from "./Edit_Modal";
+import { selectAuthUser } from "@/lib/features/user/allSlice";
+import { useAppSelector } from "@/lib/hooks";
 
 const page = () => {
-  const Skills = ["Frontend", "Backend", "Video Editor", "Graphic Design"];
+  const AuthUser = useAppSelector(selectAuthUser);
+  const [open, setopen] = useState(false)
 
   return (
     <div className="max-w-6xl shadow-xl shadow-[#10B981] mb-4 mx-auto mt-[6rem] p-6 bg-gray-900 rounded-lg">
@@ -23,14 +29,17 @@ const page = () => {
             </AvatarFallback>
           </Avatar>
           <div>
-            <h1 className="text-white font-bold text-2xl">Md Tofaal Ahmed</h1>
-            <p className="text-gray-400 text-sm">
-              Passionate about web development and design.
-            </p>
+            <h1 className="text-white font-bold text-2xl">
+              {AuthUser?.fullname}
+            </h1>
+            <p className="text-gray-400 text-sm">{AuthUser?.profile?.bio}</p>
           </div>
         </div>
-        <div className="p-2 bg-gray-800 rounded-full hover:shadow-lg cursor-pointer">
-          <Pen className="text-[#10B981] hover:scale-105 duration-300" />
+        <div
+          onClick={() => setopen(true)}
+          className="p-2 bg-gray-800 rounded-full hover:shadow-lg cursor-pointer"
+        >
+          <Pen className="text-[#10B981] hover:scale-125 duration-300" />
         </div>
       </div>
 
@@ -40,23 +49,23 @@ const page = () => {
             size={22}
             className="text-[#10B981] cursor-pointer hover:scale-105 duration-300"
           />
-          <span>tofaal91522@gmail.com</span>
+          <span>{AuthUser?.email}</span>
         </div>
         <div className="flex items-center space-x-3">
           <FaSquarePhone
             size={22}
             className="text-[#10B981] cursor-pointer hover:scale-105 duration-300"
           />
-          <span>01732243108</span>
+          <span>{AuthUser?.phoneNumber}</span>
         </div>
       </div>
 
       <div className="mb-8">
         <h2 className="text-lg text-white mb-2">Skills</h2>
         <div className="flex space-x-2">
-          {Skills.map((skill, index) => (
+          {AuthUser?.profile?.skills.map((item:any, index:any) => (
             <Badge key={index} className="bg-[#10B981] text-white shadow-md">
-              {skill}
+              {item}
             </Badge>
           ))}
         </div>
@@ -71,6 +80,7 @@ const page = () => {
       <div className="overflow-x-auto shadow-lg rounded-lg">
         <TableAppliedJob />
       </div>
+      <Edit_Modal open={open} setopen={setopen} />
     </div>
   );
 };

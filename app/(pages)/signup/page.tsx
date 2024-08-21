@@ -55,7 +55,7 @@ const Page = () => {
   });
   const onSubmit = async (data: any) => {
     try {
-      const res = await axios.post("api/user/register", data);
+      const res = await axios.post("/api/user/register", data);
       const message = res?.data?.message;
       console.log(res?.data?.message);
       toast.success(message);

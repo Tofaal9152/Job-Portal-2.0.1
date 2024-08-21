@@ -1,12 +1,12 @@
 "use client";
 import Link from "next/link";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useRouter } from "next/navigation";
 import {
   Form,
@@ -16,9 +16,9 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { toast } from "sonner";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setAuthUser } from "@/lib/features/user/allSlice";
+import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
@@ -107,49 +107,6 @@ const Page = () => {
             )}
           />
 
-          {/* <FormField
-            control={form.control}
-            name="role"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-semibold">
-                  Select your position
-                </FormLabel>
-                <FormControl>
-                  <RadioGroup
-                    value={field.value}
-                    onValueChange={field.onChange}
-                    className="flex items-center space-x-4"
-                  >
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem id="role-student" value="student" />
-                      </FormControl>
-                      <FormLabel
-                        htmlFor="role-student"
-                        className="font-normal cursor-pointer"
-                      >
-                        Student
-                      </FormLabel>
-                    </FormItem>
-
-                    <FormItem className="flex items-center space-x-3 space-y-0">
-                      <FormControl>
-                        <RadioGroupItem id="role-recruiter" value="recruiter" />
-                      </FormControl>
-                      <FormLabel
-                        htmlFor="role-recruiter"
-                        className="font-normal cursor-pointer"
-                      >
-                        Recruiter
-                      </FormLabel>
-                    </FormItem>
-                  </RadioGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
           <FormField
             control={form.control}
             name="role"

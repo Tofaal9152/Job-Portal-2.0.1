@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import database from '../../../../database/database';
 import { Job } from '../../../../models/jobModel';
+import { Company } from '../../../../models/companyModel';
 
 database();
 
