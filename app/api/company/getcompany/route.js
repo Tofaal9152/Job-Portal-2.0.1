@@ -6,7 +6,9 @@ database();
 export async function GET(req) {
     try {
         const userId = req.headers.get("xUserId")
-        const companies = await Company.find({ userId })
+        const companies = await Company.find({ userId }).sort({
+            createdAt: -1,
+        })
 
         if (!companies) {
             return NextResponse.json({ success: false, message: "Companies not found" }, { status: 404 })

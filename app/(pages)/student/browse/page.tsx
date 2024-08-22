@@ -1,4 +1,4 @@
-import Card from "@/app/(pages)/jobs/Card";
+import Card from "@/app/(pages)/student/jobs/Card";
 
 const Page = () => {
   const number = [1, 2, 3, 4, 5, 6, 7];
@@ -12,7 +12,7 @@ const Page = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-3">
         {number.map((item) => (
           <div key={item} className="flex justify-center">
-            <Card />
+            <Card item={undefined} />
           </div>
         ))}
       </div>

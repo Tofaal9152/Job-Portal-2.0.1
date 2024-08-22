@@ -58,12 +58,26 @@ const Navbar = () => {
         <Link href={"/"} className="cursor-pointer">
           Home
         </Link>
-        <Link href={"/jobs"} className="cursor-pointer">
-          Jobs
-        </Link>
-        <Link href={"/browse"} className="cursor-pointer">
-          Browse
-        </Link>
+        {AuthUser?.role === "student" ? (
+          <>
+            <Link href={"/student/jobs"} className="cursor-pointer">
+              Jobs
+            </Link>
+            <Link href={"/student/browse"} className="cursor-pointer">
+              Browse
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link href={"/recruiter/companies"} className="cursor-pointer">
+              Companies
+            </Link>
+            <Link href={"/recruiter/jobs"} className="cursor-pointer">
+              Jobs
+            </Link>
+          </>
+        )}
+
         {AuthUser ? (
           <div>
             <Popover>
@@ -88,16 +102,23 @@ const Navbar = () => {
                   </p>
                 </div>
                 <div className="flex items-center mt-2">
-                  <Link href={"/profile"}>
-                    <Button
-                      size="sm"
-                      variant="link"
-                      className="text-blue-500 hover:underline"
-                    >
-                      <User2 className="mr-2 h-4 w-4" />
-                      View profile
-                    </Button>
-                  </Link>
+                  {AuthUser?.role === "student" ? (
+                    <>
+                      <Link href={"/student/profile"}>
+                        <Button
+                          size="sm"
+                          variant="link"
+                          className="text-blue-500 hover:underline"
+                        >
+                          <User2 className="mr-2 h-4 w-4" />
+                          View profile
+                        </Button>
+                      </Link>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
                   <Button
                     size="sm"
                     variant="link"

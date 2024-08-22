@@ -28,11 +28,15 @@ const Page = () => {
         <FilterJobs />
       </div>
       <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-        {getAllJobs.map((item: any) => (
-          <div key={item._id} className="flex justify-center">
-            <Card item={item} />
-          </div>
-        ))}
+        {getAllJobs?.length > 0 ? (
+          getAllJobs.map((item: any) => (
+            <div key={item._id} className="flex justify-center">
+              <Card item={item} />
+            </div>
+          ))
+        ) : (
+          <p>No jobs available</p>
+        )}
       </div>
     </div>
   );

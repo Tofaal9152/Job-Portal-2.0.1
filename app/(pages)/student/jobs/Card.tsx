@@ -73,7 +73,7 @@ const Card = ({ item }: { item: any }) => {
       <div className="flex justify-between space-x-2">
         <Link
           className="flex-1 flex items-center justify-center text-white text-center rounded-lg hover:bg-white font-semibold hover:text-black border-[#10B981] border"
-          href={`/jobs/${item?._id}`}
+          href={`/student/jobs/${item?._id}`}
         >
           <div className="">Details</div>
         </Link>
